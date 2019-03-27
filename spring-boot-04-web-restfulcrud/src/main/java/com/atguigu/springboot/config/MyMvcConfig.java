@@ -9,10 +9,6 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.Locale;
-
 // 使用WebMvcConfigurerAdapter可以拓展SpringMvc的功能
 //@EnableWebMvc //加上自动配置就失效了
 @Configuration
