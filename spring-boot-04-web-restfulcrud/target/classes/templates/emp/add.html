@@ -13,7 +13,7 @@
 		<link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}" rel="stylesheet">
 
 		<!-- Custom styles for this template -->
-		<link href="asserts/css/dashboard.css" rel="stylesheet">
+		<link href="asserts/css/dashboard.css" th:href="@{asserts/css/dashboard.css}" rel="stylesheet">
 		<style type="text/css">
 			/* Chart.js */
 			
@@ -54,8 +54,15 @@
 				<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
 					<!--需要区分是员工修改还是添加；-->
 					<form th:action="@{/emp}" method="post">
+						<!-- 发送put请求修改员工数据 -->
+						<!--
+							1.SpringMVC中配置HiddenHttpMethodFiler;(SpringBoot自动配置好的)
+							2.页面创建一个POST表单
+							3.创建一个input项，name="_method";值就是我们指定的请求方式
+						-->
 						<input type="hidden" name="_method" value="put" th:if="${emp!=null}"/>
 						<input type="hidden" name="id" th:if="${emp!=null}" th:value="${emp.id}">
+
 						<div class="form-group">
 							<label>LastName</label>
 							<input name="lastName" type="text" class="form-control" placeholder="zhangsan" th:value="${emp!=null}?${emp.lastName}">
@@ -79,7 +86,7 @@
 							<label>department</label>
 							<!-- 提交的是部门的id -->
 							<select class="form-control" name="department.id">
-								<option th:value="${dept.id}" th:each="dept:${depts}" th:text="${dept.departmentName}">1</option>
+								<option th:selected="${emp!=null}?${dept.id==emp.department.id}" th:value="${dept.id}" th:each="dept:${depts}" th:text="${dept.departmentName}">1</option>
 							</select>
 						</div>
 						<div class="form-group">
